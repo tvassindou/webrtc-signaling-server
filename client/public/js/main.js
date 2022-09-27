@@ -66,15 +66,6 @@ setupConfig();
 async function setupConfig() {
   const res = await getServerConfig();
   useWebSocket = res.useWebSocket;
-  showWarningIfNeeded(res.startupMode);
-}
-
-function showWarningIfNeeded(startupMode) {
-  const warningDiv = document.getElementById("warning");
-  if (startupMode == "public") {
-    warningDiv.innerHTML = "<h4>Warning</h4> This sample is not working on Public Mode.";
-    warningDiv.hidden = false;
-  }
 }
 
 async function startVideo() {
@@ -105,8 +96,7 @@ async function setUp() {
   hangUpButton.disabled = false;
   connectionId = textForConnectionId.value;
   codecPreferences.disabled = true;
-
-  const signaling = useWebSocket ? new WebSocketSignaling() : new Signaling();
+  const signaling = new WebSocketSignaling();
   const config = getRTCConfiguration();
   renderstreaming = new RenderStreaming(signaling, config);
   renderstreaming.onConnect = () => {

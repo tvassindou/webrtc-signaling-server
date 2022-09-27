@@ -52,16 +52,14 @@ export class RenderStreaming {
                 }
             }
         });
-
-        if (this.options.websocket) {
-            var prefix: string = "ws";
-            if (this.options.port == 443) {
-                prefix = "wss";
-            }
-            console.log(`start websocket signaling server ${prefix}://${this.getIPAddress()[0]}`);
-            //Start Websocket Signaling server
-            new WSSignaling(this.server, this.options.mode);
+        var prefix: string = "ws";
+        if (this.options.port == 443) {
+            prefix = "wss";
         }
+        console.log(`start websocket signaling server ${prefix}://${this.getIPAddress()[0]}`);
+        //Start Websocket Signaling server
+        new WSSignaling(this.server, this.options.mode);
+
 
         console.log(`start as ${this.options.mode} mode`);
     }
